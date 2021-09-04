@@ -122,33 +122,10 @@ def train_detector(model,
     else:
         optimizer_config = cfg.optimizer_config
 
-    # register eval hooks
-    if validate:
-        # Support batch_size > 1 in validation
-        val_samples_per_gpu = cfg.data.val.pop('samples_per_gpu', 1)
-        if val_samples_per_gpu > 1:
-            # Replace 'ImageToTensor' to 'DefaultFormatBundle'
-            cfg.data.val.pipeline = replace_ImageToTensor(
-                cfg.data.val.pipeline)
-        val_dataset = build_dataset(cfg.data.val, dict(test_mode=True))
-        val_dataloader = build_dataloader(
-            val_dataset,
-            samples_per_gpu=val_samples_per_gpu,
-            workers_per_gpu=cfg.data.workers_per_gpu,
-            dist=distributed,
-            shuffle=False)
-        eval_cfg = cfg.get('evaluation', {})
-        eval_cfg['by_epoch'] = cfg.runner['type'] != 'IterBasedRunner'
-        eval_hook = DistEvalHook if distributed else EvalHook
-        # In this PR (https://github.com/open-mmlab/mmcv/pull/1193), the
-        # priority of IterTimerHook has been modified from 'NORMAL' to 'LOW'.
-        runner.register_hook(
-            eval_hook(val_dataloader, **eval_cfg), priority='LOW')
-
     # register hooks
-    runner.register_training_hooks(cfg.lr_config, optimizer_config,
-                                   cfg.checkpoint_config, cfg.log_config,
-                                   cfg.get('momentum_config', None))
+    #runner.register_training_hooks(cfg.lr_config, optimizer_config,
+    #                               cfg.checkpoint_config, cfg.log_config,
+    #                               cfg.get('momentum_config', None))
     if distributed:
         if isinstance(runner, EpochBasedRunner):
             runner.register_hook(DistSamplerSeedHook())
