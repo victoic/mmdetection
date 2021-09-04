@@ -134,6 +134,7 @@ class BaseDetector(BaseModule, metaclass=ABCMeta):
         for img, img_meta in zip(imgs, img_metas):
             batch_size = len(img_meta)
             for img_id in range(batch_size):
+                print("------------")
                 print(img_meta)
                 help(img_meta)
                 img_meta[img_id]['batch_input_shape'] = tuple(img.size()[-2:])
