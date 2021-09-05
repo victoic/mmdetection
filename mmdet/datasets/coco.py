@@ -346,7 +346,7 @@ class CocoDataset(CustomDataset):
                 the json filepaths, tmp_dir is the temporal directory created \
                 for saving json files when jsonfile_prefix is not specified.
         """
-        print(jsonfile_prefix)
+        print("\nJson Prefix: ", jsonfile_prefix)
         assert isinstance(results, list), 'results must be a list'
         assert len(results) == len(self), (
             'The length of results is not equal to the dataset len: {} != {}'.
@@ -399,7 +399,8 @@ class CocoDataset(CustomDataset):
         Returns:
             dict[str, float]: COCO style evaluation metric.
         """
-
+        print("\n\n ENTERING EVALUATE")
+        print("\n\n")
         metrics = metric if isinstance(metric, list) else [metric]
         allowed_metrics = ['bbox', 'segm', 'proposal', 'proposal_fast']
         for metric in metrics:
@@ -416,6 +417,8 @@ class CocoDataset(CustomDataset):
 
         eval_results = OrderedDict()
         cocoGt = self.coco
+        print("\n\nMetrics: ",metrics)
+        print("\n\n")
         for metric in metrics:
             msg = f'Evaluating {metric}...'
             if logger is None:
@@ -434,10 +437,11 @@ class CocoDataset(CustomDataset):
                 continue
 
             iou_type = 'bbox' if metric == 'proposal' else metric
+            print("\n\nResult Files: ", result_files)
+            print("\n\n")
             if metric not in result_files:
                 raise KeyError(f'{metric} is not in results')
             try:
-                print(result_files)
                 predictions = mmcv.load(result_files[metric])
                 if iou_type == 'segm':
                     # Refer to https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/coco.py#L331  # noqa
