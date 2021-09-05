@@ -399,8 +399,8 @@ class CocoDataset(CustomDataset):
         Returns:
             dict[str, float]: COCO style evaluation metric.
         """
-        print("\n\n ENTERING EVALUATE")
-        print("\n\n")
+        print("\nENTERING EVALUATE")
+        print("\n")
         metrics = metric if isinstance(metric, list) else [metric]
         allowed_metrics = ['bbox', 'segm', 'proposal', 'proposal_fast']
         for metric in metrics:
@@ -437,10 +437,12 @@ class CocoDataset(CustomDataset):
                 continue
 
             iou_type = 'bbox' if metric == 'proposal' else metric
-            print("\n\nResult Files: ", result_files)
-            print("\n\n")
-            print("\n\nEval Results: ", eval_results)
-            print("\n\n")
+            print("\nResult Files: ", result_files)
+            print("\n")
+            print("\nEval Results: ", eval_results)
+            print("\n")
+            print("\nResults: ", results)
+            print("\n")
             if metric not in result_files:
                 raise KeyError(f'{metric} is not in results')
             try:
