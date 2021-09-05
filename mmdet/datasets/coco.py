@@ -442,7 +442,7 @@ class CocoDataset(CustomDataset):
             print("\nEval Results: ", eval_results)
             print("\n")
             print("\nResults: ", results)
-            print("\n")
+            print("\n\n")
             if metric not in result_files:
                 raise KeyError(f'{metric} is not in results')
             try:
