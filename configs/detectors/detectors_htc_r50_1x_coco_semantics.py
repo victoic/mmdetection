@@ -2,7 +2,7 @@
 _base_ = './detectors_htc_r50_1x_coco.py'
 
 # 1. dataset settings
-dataset_type = 'CocoSemanticDataset'
+dataset_type = 'CocoDataset'
 classes = ('pole', 'cuboid', 'flat', 'disk', 'cylinder', 'sphere', 'wedge')
 data = dict(
     train=dict(
