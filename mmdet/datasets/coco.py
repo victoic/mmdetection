@@ -439,6 +439,8 @@ class CocoDataset(CustomDataset):
             iou_type = 'bbox' if metric == 'proposal' else metric
             print("\n\nResult Files: ", result_files)
             print("\n\n")
+            print("\n\nEval Results: ", eval_results)
+            print("\n\n")
             if metric not in result_files:
                 raise KeyError(f'{metric} is not in results')
             try:
